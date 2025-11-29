@@ -62,10 +62,10 @@ function openDeleteDialog(risk) {
 }
 
 async function saveRisk() {
-  // Use opportunityID from the fetched opportunity (numeric ID like "227")
+  // Use opportunityID (SAP ID) from the fetched opportunity
   const payload = {
     ...riskForm.value,
-    opportunityID: store.currentOpportunity?.opportunityID || opportunityId.value,
+    opportunityID: store.currentOpportunity?.opportunityID,
   }
 
   if (isEditing.value) {
