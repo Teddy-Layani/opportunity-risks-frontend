@@ -9,7 +9,7 @@ const router = createRouter({
       component: () => import('@/views/DashboardView.vue'),
     },
     {
-      path: '/opportunity/:id',
+      path: '/opportunity/',
       name: 'opportunity-risks',
       component: () => import('@/views/OpportunityRisksView.vue'),
     },

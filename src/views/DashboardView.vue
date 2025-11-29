@@ -7,8 +7,8 @@ const router = useRouter()
 const store = useRisksStore()
 
 function goToOpportunity(opportunity) {
-  // Use _id for API calls
-  router.push(`/opportunity/${opportunity._id}`)
+  // Use opportunityID for query parameter
+  router.push(`/opportunity/?id=${opportunity.opportunityID}`)
 }
 
 onMounted(() => {

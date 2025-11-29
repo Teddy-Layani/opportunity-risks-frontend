@@ -6,7 +6,7 @@ import { useRisksStore } from '@/stores/risks'
 const route = useRoute()
 const store = useRisksStore()
 
-const opportunityId = computed(() => route.params.id)
+const opportunityId = computed(() => route.query.id)
 
 // Dialog state
 const riskDialog = ref(false)
