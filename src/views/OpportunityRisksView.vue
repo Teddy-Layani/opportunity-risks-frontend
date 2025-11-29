@@ -7,6 +7,7 @@ const route = useRoute()
 const store = useRisksStore()
 
 const opportunityId = computed(() => route.query.id)
+const isMashupMode = computed(() => route.query.mashup === 'true')
 
 // Dialog state
 const riskDialog = ref(false)
@@ -143,9 +144,9 @@ onMounted(loadData)
 </script>
 
 <template>
-  <v-container fluid>
-    <!-- Header -->
-    <div class="d-flex align-center mb-6">
+  <v-container fluid :class="{ 'pa-0': isMashupMode }">
+    <!-- Header (hidden in mashup mode) -->
+    <div v-if="!isMashupMode" class="d-flex align-center mb-6">
       <div>
         <h1 class="text-h4">
           {{ store.currentOpportunity?.name || 'Opportunity Risks' }}
@@ -214,10 +215,15 @@ onMounted(loadData)
     </v-row>
 
     <!-- Risks Table -->
-    <v-card>
+    <v-card :flat="isMashupMode" :class="{ 'elevation-0': isMashupMode }">
       <v-card-title class="d-flex align-center">
         <v-icon icon="mdi-table" class="mr-2" />
         Risks
+        <v-spacer />
+        <v-btn v-if="isMashupMode" color="primary" size="small" @click="openCreateDialog">
+          <v-icon icon="mdi-plus" class="mr-1" />
+          Add Risk
+        </v-btn>
       </v-card-title>
       <v-card-text>
         <v-data-table

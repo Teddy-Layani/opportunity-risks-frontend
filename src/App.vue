@@ -1,16 +1,20 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 const drawer = ref(true)
 const rail = ref(false)
+
+const isMashupMode = computed(() => route.query.mashup === 'true')
 
 const navigationItems = [{ title: 'Opportunities', icon: 'mdi-briefcase', to: '/' }]
 </script>
 
 <template>
   <v-app>
-    <!-- App Bar -->
-    <v-app-bar color="primary" prominent>
+    <!-- App Bar (hidden in mashup mode) -->
+    <v-app-bar v-if="!isMashupMode" color="primary" prominent>
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <v-toolbar-title>Opportunity Risks Management</v-toolbar-title>
       <v-spacer />
@@ -33,8 +37,8 @@ const navigationItems = [{ title: 'Opportunities', icon: 'mdi-briefcase', to: '/
       </v-menu>
     </v-app-bar>
 
-    <!-- Navigation Drawer -->
-    <v-navigation-drawer v-model="drawer" :rail="rail" permanent @click="rail = false">
+    <!-- Navigation Drawer (hidden in mashup mode) -->
+    <v-navigation-drawer v-if="!isMashupMode" v-model="drawer" :rail="rail" permanent @click="rail = false">
       <v-list-item
         prepend-icon="mdi-shield-alert"
         title="Risk Manager"
